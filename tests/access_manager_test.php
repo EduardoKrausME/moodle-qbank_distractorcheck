@@ -22,7 +22,8 @@ use qbank_distractorcheck\access_manager;
 
 /**
  * Capability tests.
- *
+ * @coversNothing
+
  * @package    qbank_distractorcheck
  * @copyright  2026 Eduardo Kraus
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

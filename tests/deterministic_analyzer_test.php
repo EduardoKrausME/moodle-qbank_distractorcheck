@@ -25,6 +25,8 @@ use qbank_distractorcheck\deterministic_analyzer;
  * @package    qbank_distractorcheck
  * @copyright  2026 Eduardo Kraus
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * @covers \qbank_distractorcheck\deterministic_analyzer
  */
 final class deterministic_analyzer_test extends advanced_testcase {
     /**

@@ -29,8 +29,10 @@ use invalid_parameter_exception;
 class ai_response_parser {
     /** @var string[] */
     private const QUALITIES = ['good', 'weak', 'problematic'];
+
     /** @var string[] */
     private const CONFIDENCES = ['low', 'medium', 'high'];
+
     /** @var string[] */
     private const FINDINGS = [
         'plausibility',

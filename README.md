@@ -1,34 +1,11 @@
 # qbank_distractorcheck
 
-`qbank_distractorcheck` is a Moodle question bank plugin for Moodle 4.5+ that reviews the quality of alternatives and
+`qbank_distractorcheck` is a Moodle question bank plugin for Moodle that reviews the quality of alternatives and
 distractors in existing `multichoice` questions.
 
 It does not generate complete questions and it does not automatically edit the question bank. The teacher starts the
 review from the action menu of a multiple-choice question and receives deterministic findings plus a semantic review
 produced through `local_ai_bridge`.
-
-## Requirements
-
-- Moodle 4.5 or later.
-- `local_ai_bridge` version `2026093001` or later.
-- A bridge purpose with idnumber `distractorcheck-review` available to the current user/tenant.
-
-The dependency is declared in `version.php`:
-
-```php
-$plugin->dependencies = [
-    'local_ai_bridge' => 2026093001,
-];
-```
-
-All AI requests use only:
-
-```php
-\local_ai_bridge\api::generate('distractorcheck-review', $messages);
-```
-
-The plugin contains no provider endpoint, API key, model selector or direct integration with OpenAI, Gemini, Claude,
-Ollama or another provider.
 
 ## What is checked locally
 
@@ -105,37 +82,7 @@ The plugin adds `qbank/distractorcheck:review`, allowed by default for editing t
 requires the normal Moodle capability to view the selected question. `local_ai_bridge` independently enforces its
 own `local/ai_bridge:use`, tenant, user, purpose, route and credit rules.
 
-## Installation
-
-Copy the directory to:
-
-```text
-question/bank/distractorcheck
-```
-
-Then run the Moodle upgrade process. The action **Review distractors** appears in the question bank action menu only
-for `multichoice` questions when the user has the required permissions.
-
-## Tests
-
-PHPUnit coverage includes:
-
-- single-answer multichoice analysis;
-- multiple-answer multichoice analysis;
-- literal duplicates;
-- out-of-range AI indexes;
-- duplicate AI indexes;
-- malformed JSON;
-- duplicate generated distractor validation;
-- plugin capability defaults for editing teachers and students.
-
-Run through Moodle Plugin CI or the normal Moodle PHPUnit environment.
-
 ## Privacy
 
 The plugin stores no personal data and declares a null privacy provider. AI usage/accounting is handled
 by `local_ai_bridge` according to its own configuration.
-
-## License
-
-GNU GPL v3 or later.

@@ -26,8 +26,8 @@ require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->libdir . '/questionlib.php');
 
 use core_question\local\bank\helper;
-use qbank_distractorcheck\local\access_manager;
-use qbank_distractorcheck\local\review_service;
+use qbank_distractorcheck\access_manager;
+use qbank_distractorcheck\review_service;
 
 require_login();
 helper::require_plugin_enabled('qbank_distractorcheck');

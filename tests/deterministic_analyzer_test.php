@@ -17,7 +17,7 @@
 namespace qbank_distractorcheck;
 
 use advanced_testcase;
-use qbank_distractorcheck\local\deterministic_analyzer;
+use qbank_distractorcheck\deterministic_analyzer;
 
 /**
  * Tests for deterministic distractor checks.

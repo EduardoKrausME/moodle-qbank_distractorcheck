@@ -18,7 +18,7 @@ namespace qbank_distractorcheck;
 
 use advanced_testcase;
 use invalid_parameter_exception;
-use qbank_distractorcheck\local\ai_response_parser;
+use qbank_distractorcheck\ai_response_parser;
 
 /**
  * Tests strict validation of AI output.

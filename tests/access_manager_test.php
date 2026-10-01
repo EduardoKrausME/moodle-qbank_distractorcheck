@@ -18,7 +18,7 @@ namespace qbank_distractorcheck;
 
 use advanced_testcase;
 use context_course;
-use qbank_distractorcheck\local\access_manager;
+use qbank_distractorcheck\access_manager;
 
 /**
  * Capability tests.

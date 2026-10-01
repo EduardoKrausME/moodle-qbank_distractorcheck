@@ -1,0 +1,122 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template qbank_distractorcheck/review
+
+    Read-only distractor quality review.
+
+    Context variables include question metadata, deterministic and AI findings,
+    and an optional new distractor suggestion.
+}}
+<div class="qbank-distractorcheck">
+    <div class="mb-4">
+        <h3>{{questionname}}</h3>
+        <div class="mb-2">{{questiontext}}</div>
+        <div class="text-muted">{{answeringmode}} · {{choicecount}} {{#str}}
+            choices, qbank_distractorcheck{{/str}} · {{correctcount}} {{#str}}
+            markedcorrectcount, qbank_distractorcheck{{/str}}</div>
+    </div>
+
+    {{#hasaierror}}
+        <div class="alert alert-warning" role="alert">{{aierror}}</div>
+    {{/hasaierror}}
+
+    {{#hasquestionfindings}}
+        <div class="alert alert-danger" role="alert">
+            <strong>{{#str}}structuralfindings, qbank_distractorcheck{{/str}}</strong>
+            <ul class="mb-0 mt-2">
+                {{#questionfindings}}
+                    <li>{{justification}}</li>
+                {{/questionfindings}}
+            </ul>
+        </div>
+    {{/hasquestionfindings}}
+
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+            <tr>
+                <th>{{#str}}choice, qbank_distractorcheck{{/str}}</th>
+                <th>{{#str}}alternative, qbank_distractorcheck{{/str}}</th>
+                <th>{{#str}}grading, qbank_distractorcheck{{/str}}</th>
+                <th>{{#str}}status, qbank_distractorcheck{{/str}}</th>
+                <th>{{#str}}findings, qbank_distractorcheck{{/str}}</th>
+                <th>{{#str}}suggestion, qbank_distractorcheck{{/str}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#choices}}
+                <tr>
+                    <td>{{number}}</td>
+                    <td>{{text}}</td>
+                    <td><strong>{{correctlabel}}</strong><br><span class="text-muted">{{fraction}}</span></td>
+                    <td>
+                        <span class="badge qbank-distractorcheck-status qbank-distractorcheck-{{quality}}">{{qualitylabel}}</span>
+                        {{#confidence}}
+                            <div class="small text-muted mt-1">{{#str}}
+                                confidence, qbank_distractorcheck{{/str}}: {{confidencelabel}}</div>{{/confidence}}
+                    </td>
+                    <td>
+                        {{#hasfindings}}
+                            <ul class="mb-0 ps-3">
+                                {{#findings}}
+                                    <li><strong>{{codelabel}}</strong>: {{justification}} <span
+                                            class="text-muted">({{sourcelabel}})</span></li>
+                                {{/findings}}
+                            </ul>
+                        {{/hasfindings}}
+                        {{^hasfindings}}<span class="text-muted">{{#str}}
+                            nofindings, qbank_distractorcheck{{/str}}</span>{{/hasfindings}}
+                    </td>
+                    <td>
+                        {{#hassuggestion}}{{suggestion}}{{/hassuggestion}}
+                        {{^hassuggestion}}<span class="text-muted">—</span>{{/hassuggestion}}
+                    </td>
+                </tr>
+            {{/choices}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h4 class="h5">{{#str}}newdistractor, qbank_distractorcheck{{/str}}</h4>
+            <p>{{#str}}newdistractor_help, qbank_distractorcheck{{/str}}</p>
+            {{#hassuggestion}}
+                <div class="alert alert-info">
+                    <strong>{{suggestion.distractor}}</strong>
+                    <div class="mt-2">{{suggestion.rationale}}</div>
+                    <div class="small mt-2">{{#str}}neversavedautomatically, qbank_distractorcheck{{/str}}</div>
+                </div>
+            {{/hassuggestion}}
+            {{#hassuggestionerror}}
+                <div class="alert alert-warning">{{suggestionerror}}</div>{{/hassuggestionerror}}
+            <form method="post" action="{{suggesturl}}">
+                <input type="hidden" name="id" value="{{questionid}}">
+                <input type="hidden" name="returnurl" value="{{returnurl}}">
+                <input type="hidden" name="sesskey" value="{{sesskey}}">
+                <input type="hidden" name="action" value="suggest">
+                <button type="submit" class="btn btn-secondary">{{#str}}
+                    suggestnewdistractor, qbank_distractorcheck{{/str}}</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{backurl}}" class="btn btn-primary">{{#str}}backtoquestionbank, qbank_distractorcheck{{/str}}</a>
+    </div>
+</div>

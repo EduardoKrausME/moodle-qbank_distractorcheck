@@ -16,7 +16,6 @@
 
 namespace qbank_distractorcheck;
 
-use core_text;
 use invalid_parameter_exception;
 
 /**
@@ -99,7 +98,7 @@ class ai_response_parser {
             if (!is_null($choice['suggestion']) && !is_string($choice['suggestion'])) {
                 throw new invalid_parameter_exception('AI suggestion must be a string or null.');
             }
-            if (is_string($choice['suggestion']) && core_text::strlen($choice['suggestion']) > 4000) {
+            if (is_string($choice['suggestion']) && strlen($choice['suggestion']) > 4000) {
                 throw new invalid_parameter_exception('AI suggestion is too long.');
             }
 
@@ -117,7 +116,7 @@ class ai_response_parser {
                     throw new invalid_parameter_exception('AI returned an invalid finding type.');
                 }
                 if (!is_string($finding['justification']) || trim($finding['justification']) === '' ||
-                    core_text::strlen($finding['justification']) > 6000) {
+                    strlen($finding['justification']) > 6000) {
                     throw new invalid_parameter_exception('AI finding justification is invalid.');
                 }
                 $findings[] = [
@@ -163,8 +162,8 @@ class ai_response_parser {
         }
         $distractor = trim($decoded['distractor']);
         $rationale = trim($decoded['rationale']);
-        if ($distractor === '' || $rationale === '' || core_text::strlen($distractor) > 4000 ||
-            core_text::strlen($rationale) > 6000) {
+        if ($distractor === '' || $rationale === '' || strlen($distractor) > 4000 ||
+            strlen($rationale) > 6000) {
             throw new invalid_parameter_exception('AI distractor suggestion contains invalid text.');
         }
 
@@ -185,7 +184,7 @@ class ai_response_parser {
      * @return string
      */
     private static function normalize(string $text): string {
-        $text = core_text::strtolower(trim($text));
+        $text = strtolower(trim($text));
         return preg_replace('/\s+/u', ' ', $text) ?? $text;
     }
 }

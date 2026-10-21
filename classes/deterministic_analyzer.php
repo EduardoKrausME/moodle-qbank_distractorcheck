@@ -16,7 +16,6 @@
 
 namespace qbank_distractorcheck;
 
-use core_text;
 
 /**
  * Deterministic checks that do not need AI.
@@ -87,7 +86,7 @@ class deterministic_analyzer {
             }
             $key = $this->normalize($text);
             $normalized[$key][] = $index;
-            $lengths[$index] = core_text::strlen($text);
+            $lengths[$index] = strlen($text);
         }
 
         foreach ($normalized as $indexes) {
@@ -137,7 +136,7 @@ class deterministic_analyzer {
      * @return string
      */
     private function normalize(string $text): string {
-        $text = core_text::strtolower(trim($text));
+        $text = strtolower(trim($text));
         return preg_replace('/\s+/u', ' ', $text) ?? $text;
     }
 

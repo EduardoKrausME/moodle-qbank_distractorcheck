@@ -16,7 +16,6 @@
 
 namespace qbank_distractorcheck;
 
-use core_text;
 use local_ai_bridge\api;
 use moodle_exception;
 
@@ -185,9 +184,9 @@ PROMPT;
      * @return string
      */
     private function limit(string $text, int $limit): string {
-        if (core_text::strlen($text) <= $limit) {
+        if (strlen($text) <= $limit) {
             return $text;
         }
-        return core_text::substr($text, 0, $limit) . '…';
+        return substr($text, 0, $limit) . '…';
     }
 }
